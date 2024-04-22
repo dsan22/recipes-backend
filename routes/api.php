@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\IngredientsController;
 use App\Http\Controllers\RecipeCategoriesController;
+use App\Http\Controllers\RecipesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,12 @@ Route::get('/categories/{id}', [RecipeCategoriesController::class, 'show']);
 Route::post('/categories', [RecipeCategoriesController::class, 'store']);
 Route::put('/categories/{id}', [RecipeCategoriesController::class, 'update']);
 Route::delete('/categories/{id}', [RecipeCategoriesController::class, 'destroy']);
+
+
+/*  Recipes  */
+Route::get('/recipes', [RecipesController::class, 'index']);
+Route::get('/recipes/{id}', [RecipesController::class, 'show']);
+Route::post('/recipes', [RecipesController::class, 'store']);
+Route::put('/recipes/{id}', [RecipesController::class, 'update']);
+Route::delete('/recipes/{id}', [RecipesController::class, 'destroy']);
 
