@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RecipeResource;
 use App\Models\Recipes;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,13 @@ class RecipesController extends Controller
     public function index()
     {
         $items = Recipes::all();
-        return response()->json($items);
+        return RecipeResource::collection($items);
     }
 
     public function show($id)
     {
         $item = Recipes::find($id);
-        return response()->json($item);
+        return RecipeResource::collection($item);
     }
 
     public function store(Request $request)
