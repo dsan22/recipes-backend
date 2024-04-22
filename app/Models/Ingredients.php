@@ -18,6 +18,6 @@ class Ingredients extends Model
     }
     
     //allows mass asigment for name
-    protected $fillables = ['name'];
+    protected $fillable = ['name'];
     
 }

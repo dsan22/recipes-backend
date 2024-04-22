@@ -9,8 +9,7 @@ class Recipes extends Model
 {
     use HasFactory;
 
-    const table_name = "recipes";
-    protected $fillable = ['name', 'instructions', 'category_id'];
+    
 
     public function ingredients()
     {
@@ -21,4 +20,7 @@ class Recipes extends Model
     {
         return $this->belongsTo(RecipeCategories::class, 'category_id');
     }
+
+    const table_name = "recipes";
+    protected $fillable = ['name', 'instructions', 'category_id'];
 }

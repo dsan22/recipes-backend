@@ -12,4 +12,5 @@ class RecipeCategories extends Model
     
 
     const table_name = "recipe_categories";
+    protected $fillable=['name'];
 }
