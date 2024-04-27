@@ -20,25 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-/*  Ingredients  */
-Route::get('/ingredients', [IngredientsController::class, 'index']);
-Route::get('/ingredients/{id}', [IngredientsController::class, 'show']);
-Route::post('/ingredients', [IngredientsController::class, 'store']);
-Route::put('/ingredients/{id}', [IngredientsController::class, 'update']);
-Route::delete('/ingredients/{id}', [IngredientsController::class, 'destroy']);
-
-/*  Recipe Categories  */
-Route::get('/categories', [RecipeCategoriesController::class, 'index']);
-Route::get('/categories/{id}', [RecipeCategoriesController::class, 'show']);
-Route::post('/categories', [RecipeCategoriesController::class, 'store']);
-Route::put('/categories/{id}', [RecipeCategoriesController::class, 'update']);
-Route::delete('/categories/{id}', [RecipeCategoriesController::class, 'destroy']);
 
 
-/*  Recipes  */
-Route::get('/recipes', [RecipesController::class, 'index']);
-Route::get('/recipes/{id}', [RecipesController::class, 'show']);
-Route::post('/recipes', [RecipesController::class, 'store']);
-Route::put('/recipes/{id}', [RecipesController::class, 'update']);
-Route::delete('/recipes/{id}', [RecipesController::class, 'destroy']);
 
+Route::apiResources([
+    'ingredients'=>IngredientsController::class,
+    'categories' => RecipeCategoriesController::class,
+    'recipes' => RecipesController::class,
+]);
