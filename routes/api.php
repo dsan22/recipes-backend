@@ -28,3 +28,5 @@ Route::apiResources([
     'categories' => RecipeCategoriesController::class,
     'recipes' => RecipesController::class,
 ]);
+
+Route::post('/recipes/search', [RecipesController::class, 'getRecipesByIngredients']);

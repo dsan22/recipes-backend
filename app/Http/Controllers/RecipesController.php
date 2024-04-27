@@ -38,4 +38,14 @@ class RecipesController extends Controller
         Recipes::destroy($id);
         return response()->json(null, 204);
     }
+
+    public function getRecipesByIngredients(Request $request)
+    {
+        //list of strings, names of ingrdients
+        $ingredients = $request->input('ingredients');
+
+        $recipes = Recipes::searchByIngredients($ingredients);
+
+        return response()->json(['recipes' => $recipes]);
+    }
 }
