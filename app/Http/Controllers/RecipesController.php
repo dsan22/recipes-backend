@@ -23,6 +23,7 @@ class RecipesController extends Controller
     public function store(Request $request)
     {
         $item = Recipes::create($request->all());
+        $item->ingredients()->attach($request['ingredients']);
         return response()->json($item, 201);
     }
 
