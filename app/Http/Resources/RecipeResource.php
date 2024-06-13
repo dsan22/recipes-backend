@@ -19,6 +19,7 @@ class RecipeResource extends JsonResource
             'name' => $this->name,
             'instructions' => $this->instructions,
             'ingredients'=> IngredientResource::collection($this->ingredients),
+            'user'=>$this->user->name,
             'category' => $this->category->name,
             'created_at' => $this->created_at,
             'updated_at'=> $this->updated_at ,
