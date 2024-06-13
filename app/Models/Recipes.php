@@ -9,6 +9,8 @@ class Recipes extends Model
 {
     use HasFactory;
 
+    const table_name = "recipes";
+    protected $fillable = ['name', 'instructions', 'category_id','user_id'];
     
 
     public function ingredients()
@@ -20,6 +22,10 @@ class Recipes extends Model
     {
         return $this->belongsTo(RecipeCategories::class, 'category_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public static function searchByIngredients($ingredients)
     {
@@ -30,6 +36,5 @@ class Recipes extends Model
         })->get();
     }
 
-    const table_name = "recipes";
-    protected $fillable = ['name', 'instructions', 'category_id'];
+    
 }
