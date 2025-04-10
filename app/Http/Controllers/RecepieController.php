@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\RecepieResource;
 use App\Models\Recepie;
+use App\Models\RecepieImage;
 use Illuminate\Http\Request;
 
 class RecepieController extends Controller
@@ -49,4 +50,28 @@ class RecepieController extends Controller
 
         return response()->json(['recipes' => $recipes]);
     }
+
+    public function addImage(Request $request, int $recepie_id)
+{
+    // Validate the request
+    $validated = $request->validate([
+        'image' => 'required|image|max:5120', // 5MB max
+        'is_cover' => 'sometimes|boolean',
+    ]);
+
+    // Store the image
+    $path = $request->file('image')->store('recepie_images', 'public');
+
+    // Save the image record
+    $image = RecepieImage::create([
+        'recipes_id' => $recepie_id,
+        'image' => $path,
+        'is_cover' => $request->input('is_cover', false),
+    ]);
+
+    return response()->json([
+        'message' => 'Image uploaded successfully',
+        'data' => $image,
+    ], 201);
+}
 }
