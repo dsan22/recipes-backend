@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create(RecepieImage::table_name, function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recipes_id')->constrained(Recepie::table_name);
+            $table->foreignId('recepie_id')->constrained(Recepie::table_name);
             $table->string('image');
             $table->boolean('is_cover')->default(false);
             $table->timestamps();
