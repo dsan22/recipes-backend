@@ -30,10 +30,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::apiResources([
     'ingredients'=>IngredientController::class,
     'categories' => RecepieCategorieController::class,
-    'recipes' => RecepieController::class,
+    'recepies' => RecepieController::class,
 ]);
 
-Route::post('/recipes/search', [RecepieController::class, 'getRecipesByIngredients']);
+Route::post('/recepies/search', [RecepieController::class, 'getRecipesByIngredients']);
 
 Route::post('/recepies/{id}/images', [RecepieController::class, 'addImage']);
 
