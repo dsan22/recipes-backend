@@ -18,7 +18,7 @@ class RecepieController extends Controller
     public function show($id)
     {
         $item = Recepie::find($id);
-        return RecepieResource::collection($item);
+        return new RecepieResource($item);
     }
 
     public function store(Request $request)
