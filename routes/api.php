@@ -34,3 +34,8 @@ Route::apiResources([
 ]);
 
 Route::post('/recipes/search', [RecepieController::class, 'getRecipesByIngredients']);
+
+Route::post('/recepies/{id}/images', [RecepieController::class, 'addImage']);
+
+
+
