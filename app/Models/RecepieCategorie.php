@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RecipeCategories extends Model
+class RecepieCategorie extends Model
 {
     use HasFactory;
-    const table_name = "recipe_categories";
+    const table_name = "recepie_categories";
     protected $fillable=['name'];
 }

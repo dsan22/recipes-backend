@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Recipes extends Model
+class Recepie extends Model
 {
     use HasFactory;
 
-    const table_name = "recipes";
+    const table_name = "recepies";
     protected $fillable = ['name', 'instructions', 'category_id','user_id'];
     
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredients::class);
+        return $this->belongsToMany(Ingredient::class);
     }
 
     public function category()
     {
-        return $this->belongsTo(RecipeCategories::class, 'category_id');
+        return $this->belongsTo(RecepieCategorie::class, 'category_id');
     }
     public function user()
     {

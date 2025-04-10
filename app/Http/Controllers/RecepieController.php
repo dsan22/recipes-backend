@@ -2,41 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RecipeResource;
-use App\Models\Recipes;
+use App\Http\Resources\RecepieResource;
+use App\Models\Recepie;
 use Illuminate\Http\Request;
 
-class RecipesController extends Controller
+class RecepieController extends Controller
 {
     public function index()
     {
-        $items = Recipes::all();
-        return RecipeResource::collection($items);
+        $items = Recepie::all();
+        return RecepieResource::collection($items);
     }
 
     public function show($id)
     {
-        $item = Recipes::find($id);
-        return RecipeResource::collection($item);
+        $item = Recepie::find($id);
+        return RecepieResource::collection($item);
     }
 
     public function store(Request $request)
     {
-        $item = Recipes::create($request->all());
+        $item = Recepie::create($request->all());
         $item->ingredients()->attach($request['ingredients']);
         return response()->json($item, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $item = Recipes::find($id);
+        $item = Recepie::find($id);
         $item->update($request->all());
         return response()->json($item, 200);
     }
 
     public function destroy($id)
     {
-        Recipes::destroy($id);
+        Recepie::destroy($id);
         return response()->json(null, 204);
     }
 
@@ -45,7 +45,7 @@ class RecipesController extends Controller
         //list of strings, names of ingrdients
         $ingredients = $request->input('ingredients');
 
-        $recipes = Recipes::searchByIngredients($ingredients);
+        $recipes = Recepie::searchByIngredients($ingredients);
 
         return response()->json(['recipes' => $recipes]);
     }

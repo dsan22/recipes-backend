@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ingredients extends Model
+class Ingredient extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Ingredients extends Model
 
     public function recipes()
     {
-        return $this->belongsToMany(Recipes::class);
+        return $this->belongsToMany(Recepie::class);
     }
     
     //allows mass asigment for name
