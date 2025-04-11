@@ -39,5 +39,12 @@ class Recepie extends Model
             }
         })->get();
     }
+    public function get_cover_image(){
+        $image = $this->images()->orderByDesc('is_cover')->first();
+        if (!$image) {
+            return null;
+        }
+        return asset( "storage/".$image->image);
+    }
 
 }
