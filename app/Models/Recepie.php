@@ -26,6 +26,10 @@ class Recepie extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function images()
+    {
+        return $this->hasMany(RecepieImage::class);
+    }
 
     public static function searchByIngredients($ingredients)
     {
@@ -36,5 +40,4 @@ class Recepie extends Model
         })->get();
     }
 
-    
 }

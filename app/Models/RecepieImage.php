@@ -10,5 +10,8 @@ class RecepieImage extends Model
     const table_name = "recepie_images";
     use HasFactory;
 
+    public function recepie(){
+        return $this->belongsTo(Recepie::class);
+    }
     protected $guarded=['id'];
 }
