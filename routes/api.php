@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IngredientController;
-use App\Http\Controllers\RecepieCategorieController;
-use App\Http\Controllers\RecepieController;
+use App\Http\Controllers\RecipeCategorieController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,13 +29,13 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::apiResources([
     'ingredients'=>IngredientController::class,
-    'categories' => RecepieCategorieController::class,
-    'recepies' => RecepieController::class,
+    'categories' => RecipeCategorieController::class,
+    'recipes' => RecipeController::class,
 ]);
 
-Route::post('/recepies/search', [RecepieController::class, 'getRecipesByIngredients']);
+Route::post('/recipes/search', [RecipeController::class, 'getRecipesByIngredients']);
 
-Route::post('/recepies/{id}/images', [RecepieController::class, 'addImage']);
+Route::post('/recipes/{id}/images', [RecipeController::class, 'addImage']);
 
 
 

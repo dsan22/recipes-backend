@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Recepie extends Model
+class Recipe extends Model
 {
     use HasFactory;
 
-    const table_name = "recepies";
+    const table_name = "recipes";
     protected $fillable = ['name', 'instructions', 'category_id','user_id'];
     
 
@@ -20,7 +20,7 @@ class Recepie extends Model
 
     public function category()
     {
-        return $this->belongsTo(RecepieCategorie::class, 'category_id');
+        return $this->belongsTo(RecipeCategorie::class, 'category_id');
     }
     public function user()
     {
@@ -28,7 +28,7 @@ class Recepie extends Model
     }
     public function images()
     {
-        return $this->hasMany(RecepieImage::class);
+        return $this->hasMany(RecipeImage::class);
     }
 
     public static function searchByIngredients($ingredients)

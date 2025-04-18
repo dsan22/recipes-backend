@@ -2,43 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RecepieResource;
-use App\Models\Recepie;
-use App\Models\RecepieImage;
+use App\Http\Resources\RecipeResource;
+use App\Models\Recipe;
+use App\Models\RecipeImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class RecepieController extends Controller
+class RecipeController extends Controller
 {
     public function index()
     {
-        $items = Recepie::all();
-        return RecepieResource::collection($items);
+        $items = Recipe::all();
+        return RecipeResource::collection($items);
     }
 
     public function show($id)
     {
-        $item = Recepie::find($id);
-        return new RecepieResource($item);
+        $item = Recipe::find($id);
+        return new RecipeResource($item);
     }
 
     public function store(Request $request)
     {
-        $item = Recepie::create($request->all());
+        $item = Recipe::create($request->all());
         $item->ingredients()->attach($request['ingredients']);
         return response()->json($item, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $item = Recepie::find($id);
+        $item = Recipe::find($id);
         $item->update($request->all());
         return response()->json($item, 200);
     }
 
     public function destroy($id)
     {
-        Recepie::destroy($id);
+        Recipe::destroy($id);
         return response()->json(null, 204);
     }
 
@@ -47,12 +47,12 @@ class RecepieController extends Controller
         //list of strings, names of ingrdients
         $ingredients = $request->input('ingredients');
 
-        $recipes = Recepie::searchByIngredients($ingredients);
+        $recipes = Recipe::searchByIngredients($ingredients);
 
         return response()->json(['recipes' => $recipes]);
     }
 
-    public function addImage(Request $request, int $recepie_id)
+    public function addImage(Request $request, int $recipe_id)
     {
         // Validate the request
         try {
@@ -68,11 +68,11 @@ class RecepieController extends Controller
         }
 
         // Store the image
-        $path = $request->file('image')->store('recepie_images', 'public');
+        $path = $request->file('image')->store('recipe_images', 'public');
 
         // Save the image record
-        $image = RecepieImage::create([
-            'recepie_id' => $recepie_id,
+        $image = RecipeImage::create([
+            'recipe_id' => $recipe_id,
             'image' => $path,
             'is_cover' => $request->input('is_cover', false),
         ]);

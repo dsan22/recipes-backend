@@ -2,39 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RecepieCategorie;
+use App\Models\RecipeCategorie;
 use Illuminate\Http\Request;
 
-class RecepieCategorieController extends Controller
+class RecipeCategorieController extends Controller
 {
     public function index()
     {
-        $items = RecepieCategorie::all();
+        $items = RecipeCategorie::all();
         return response()->json($items);
     }
 
     public function show($id)
     {
-        $item = RecepieCategorie::find($id);
+        $item = RecipeCategorie::find($id);
         return response()->json($item);
     }
 
     public function store(Request $request)
     {
-        $item = RecepieCategorie::create($request->all());
+        $item = RecipeCategorie::create($request->all());
         return response()->json($item, 201);
     }
 
     public function update(Request $request, $id)
     {
-        $item = RecepieCategorie::find($id);
+        $item = RecipeCategorie::find($id);
         $item->update($request->all());
         return response()->json($item, 200);
     }
 
     public function destroy($id)
     {
-        RecepieCategorie::destroy($id);
+        RecipeCategorie::destroy($id);
         return response()->json(null, 204);
     }
 }

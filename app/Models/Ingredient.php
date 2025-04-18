@@ -14,7 +14,7 @@ class Ingredient extends Model
 
     public function recipes()
     {
-        return $this->belongsToMany(Recepie::class);
+        return $this->belongsToMany(Recipe::class);
     }
     
     //allows mass asigment for name

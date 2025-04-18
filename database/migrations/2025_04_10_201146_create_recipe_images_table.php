@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\RecepieImage;
+use App\Models\RecipeImage;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Recepie;
+use App\Models\Recipe;
 
 return new class extends Migration
 {
@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create(RecepieImage::table_name, function (Blueprint $table) {
+        Schema::create("recipe_images", function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recepie_id')->constrained(Recepie::table_name);
+            $table->foreignId('recipe_id')->constrained("recipes");
             $table->string('image');
             $table->boolean('is_cover')->default(false);
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists(RecepieImage::table_name);
+        Schema::dropIfExists("recipe_images");
     }
 };
