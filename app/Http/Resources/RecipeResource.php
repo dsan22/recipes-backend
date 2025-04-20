@@ -21,7 +21,9 @@ class RecipeResource extends JsonResource
             'ingredients'=> IngredientResource::collection($this->ingredients),
             'user'=>$this->user->name,
             'cover_image'=>$this->get_cover_image(),
-            'images'=>$this->images()->get()->pluck('image'),
+            'images'=>$this->images()->get()->pluck('image')->map(function ($image) {
+                return asset( "storage/".$image);
+            }),
             'category' => $this->category->name,
             'created_at' => $this->created_at,
             'updated_at'=> $this->updated_at ,
