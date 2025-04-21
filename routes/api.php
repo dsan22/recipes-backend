@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\RecipeCategorieController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
@@ -31,6 +32,7 @@ Route::apiResources([
     'ingredients'=>IngredientController::class,
     'categories' => RecipeCategorieController::class,
     'recipes' => RecipeController::class,
+    'recipe.instructions'=> InstructionController::class,
 ]);
 
 Route::post('/recipes/search', [RecipeController::class, 'getRecipesByIngredients']);
