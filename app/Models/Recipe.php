@@ -9,8 +9,7 @@ class Recipe extends Model
 {
     use HasFactory;
 
-    const table_name = "recipes";
-    protected $fillable = ['name', 'instructions', 'category_id','user_id'];
+    protected $guarded = ['id'];
     
 
     public function ingredients()

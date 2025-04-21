@@ -9,15 +9,13 @@ class Ingredient extends Model
 {
     use HasFactory;
 
-    const table_name = "ingredients";
-
-
+    
     public function recipes()
     {
         return $this->belongsToMany(Recipe::class);
     }
     
     //allows mass asigment for name
-    protected $fillable = ['name'];
+    protected $guarded = ['id'];
     
 }

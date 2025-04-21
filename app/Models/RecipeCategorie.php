@@ -8,6 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class RecipeCategorie extends Model
 {
     use HasFactory;
-    const table_name = "recipe_categories";
-    protected $fillable=['name'];
+    protected $guarded=['id'];
 }

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecipeImage extends Model
 {
-    const table_name = "recipe_images";
     use HasFactory;
 
     public function recipe(){
