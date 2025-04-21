@@ -1,8 +1,5 @@
 <?php
 
-use App\Models\RecipeCategorie;
-use App\Models\Recipe;
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("recipes", function (Blueprint $table) {
+        Schema::create('instructions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->foreignId('category_id')->constrained("recipe_categories");
-            $table->foreignId('user_id')->constrained("users");
+            $table->foreignId('recipe_id')->constrained("recipes");
+            $table->string('instruction');
+            $table->integer('step');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists("recipes");
+        Schema::dropIfExists('instructions');
     }
 };

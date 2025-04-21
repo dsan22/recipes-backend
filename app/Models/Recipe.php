@@ -30,6 +30,11 @@ class Recipe extends Model
         return $this->hasMany(RecipeImage::class);
     }
 
+    public function instructions()
+    {
+        return $this->hasMany(Instruction::class);
+    }
+
     public static function searchByIngredients($ingredients)
     {
         return static::whereHas('ingredients', function ($query) use ($ingredients) {
