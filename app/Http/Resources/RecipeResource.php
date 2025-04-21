@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Instruction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,13 +18,14 @@ class RecipeResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'instructions' => $this->instructions,
+            'description' => $this->description,
             'ingredients'=> IngredientResource::collection($this->ingredients),
             'user'=>$this->user->name,
             'cover_image'=>$this->get_cover_image(),
             'images'=>$this->images()->get()->pluck('image')->map(function ($image) {
                 return asset( "storage/".$image);
             }),
+            'instructions'=> $this->instructions()->orderBy('step')->get()->pluck('instruction'),
             'category' => $this->category->name,
             'created_at' => $this->created_at,
             'updated_at'=> $this->updated_at ,
