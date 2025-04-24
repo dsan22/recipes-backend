@@ -29,7 +29,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 Route::apiResources([
-    'ingredients'=>IngredientController::class,
+    'recipe.ingredients'=>IngredientController::class,
     'categories' => RecipeCategorieController::class,
     'recipes' => RecipeController::class,
     'recipe.instructions'=> InstructionController::class,
