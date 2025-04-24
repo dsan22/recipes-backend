@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Ingredient;
-use App\Models\Recipe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ingredient_recipe', function (Blueprint $table) {
+        Schema::create("ingredients", function (Blueprint $table) {
             $table->id();
-            $table->foreignId('recipe_id')->constrained("recipes");
-            $table->foreignId('ingredient_id')->constrained("ingredients");
+            $table->foreignId('recipe_id')->constrained("recipes")->onDelete('cascade');
+            $table->string('amount')->nullable(); 
+            $table->string('name');              
+            $table->string('notes')->nullable(); 
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ingredient_recipe');
+        Schema::dropIfExists("ingredients");
     }
 };
