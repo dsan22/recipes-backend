@@ -25,7 +25,6 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         $item = Recipe::create($request->all());
-        $item->ingredients()->attach($request['ingredients']);
         return response()->json($item, 201);
     }
 
