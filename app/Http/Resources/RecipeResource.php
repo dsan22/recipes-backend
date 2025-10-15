@@ -25,7 +25,7 @@ class RecipeResource extends JsonResource
             'images'=>$this->images()->get()->pluck('image')->map(function ($image) {
                 return asset( "storage/".$image);
             }),
-            'instructions'=> $this->instructions()->orderBy('step')->get()->pluck('instruction'),
+            'instructions'=> InstructionResource::collection($this->instructions()->orderBy('step')->get()),
             'category' => $this->category->name,
             'created_at' => $this->created_at,
             'updated_at'=> $this->updated_at ,
