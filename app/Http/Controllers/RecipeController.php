@@ -7,6 +7,8 @@ use App\Models\Recipe;
 use App\Models\RecipeImage;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\UpdateRecipeRequest;
+use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -28,12 +30,72 @@ class RecipeController extends Controller
         return response()->json($item, 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRecipeRequest $request, Recipe $recipe)
     {
-        $item = Recipe::find($id);
-        $item->update($request->all());
-        return response()->json($item, 200);
+        DB::transaction(function () use ($recipe, $request) {
+
+            // --- Update main recipe fields ---
+            $recipe->update($request->only(['name', 'description']));
+
+            // --- INGREDIENTS ---
+            $existingIngredientIds = [];
+
+            foreach ($request->ingredients ?? [] as $ingredientData) {
+                if (isset($ingredientData['id'])) {
+                    $ingredient = $recipe->ingredients()->find($ingredientData['id']);
+                    if ($ingredient) {
+                        $ingredient->update([
+                            'name' => $ingredientData['name'],
+                            'amount' => $ingredientData['amount'],
+                        ]);
+                        $existingIngredientIds[] = $ingredient->id;
+                    }
+                } else {
+                    $new = $recipe->ingredients()->create([
+                        'name' => $ingredientData['name'],
+                        'amount' => $ingredientData['amount'],
+                    ]);
+                    $existingIngredientIds[] = $new->id;
+                }
+            }
+
+            // Delete removed ingredients
+            $recipe->ingredients()
+                ->whereNotIn('id', $existingIngredientIds)
+                ->delete();
+
+
+            // --- INSTRUCTIONS ---
+            $existingInstructionIds = [];
+
+            foreach ($request->instructions ?? [] as $instructionData) {
+                if (isset($instructionData['id'])) {
+                    $instruction = $recipe->instructions()->find($instructionData['id']);
+                    if ($instruction) {
+                        $instruction->update([
+                            'instruction' => $instructionData['instruction'],
+                            'step' => $instructionData['step'],
+                        ]);
+                        $existingInstructionIds[] = $instruction->id;
+                    }
+                } else {
+                    $new = $recipe->instructions()->create([
+                        'instruction' => $instructionData['instruction'],
+                        'step' => $instructionData['step'],
+                    ]);
+                    $existingInstructionIds[] = $new->id;
+                }
+            }
+
+            // Delete removed instructions
+            $recipe->instructions()
+                ->whereNotIn('id', $existingInstructionIds)
+                ->delete();
+        });
+
+        return new RecipeResource($recipe->fresh('ingredients', 'instructions'));
     }
+
 
     public function destroy($id)
     {
