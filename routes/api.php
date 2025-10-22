@@ -39,5 +39,7 @@ Route::post('/recipes/search', [RecipeController::class, 'getRecipesByIngredient
 
 Route::post('/recipes/{id}/images', [RecipeController::class, 'addImage']);
 
+Route::get('/my-recipes', [RecipeController::class, 'myRecipes'])->middleware('auth:sanctum');
+
 
 

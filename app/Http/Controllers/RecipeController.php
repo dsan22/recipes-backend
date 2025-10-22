@@ -143,4 +143,23 @@ class RecipeController extends Controller
             'data' => $image,
         ], 201);
     }
+
+    public function myRecipes()
+    {
+        // Ensure the user is authenticated
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        // Fetch only recipes belonging to this user
+        $recipes = Recipe::where('user_id', $user->id)
+            ->with(['ingredients', 'instructions'])
+            ->latest()
+            ->get();
+
+        // Return the recipes wrapped in the resource collection
+        return RecipeResource::collection($recipes);
+    }
 }
