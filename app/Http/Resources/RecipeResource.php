@@ -22,9 +22,7 @@ class RecipeResource extends JsonResource
             'ingredients'=> IngredientResource::collection($this->ingredients),
             'user'=>$this->user->name,
             'cover_image'=>$this->get_cover_image(),
-            'images'=>$this->images()->get()->pluck('image')->map(function ($image) {
-                return asset( "storage/".$image);
-            }),
+            'images'=> ImageResource::collection($this->images) ,
             'instructions'=> InstructionResource::collection($this->instructions()->orderBy('step')->get()),
             'category' => $this->category->name,
             'created_at' => $this->created_at,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RecipeResource;
+use App\Http\Resources\ImageResource;
 use App\Models\Recipe;
 use App\Models\RecipeImage;
 use Illuminate\Http\Request;
@@ -140,7 +141,7 @@ class RecipeController extends Controller
 
         return response()->json([
             'message' => 'Image uploaded successfully',
-            'data' => $image,
+            'data' => new ImageResource($image),
         ], 201);
     }
 
