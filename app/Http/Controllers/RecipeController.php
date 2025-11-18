@@ -145,6 +145,33 @@ class RecipeController extends Controller
         ], 201);
     }
 
+    public function deleteImage(int $recipe_id, int $image_id)
+    {
+        // Find the image and ensure it belongs to the recipe
+        $image = RecipeImage::where('recipe_id', $recipe_id)
+            ->where('id', $image_id)
+            ->first();
+
+        if (!$image) {
+            return response()->json([
+                'message' => 'Image not found for this recipe.'
+            ], 404);
+        }
+
+        // Delete the file from storage
+        if ($image->image && \Storage::disk('public')->exists($image->image)) {
+            \Storage::disk('public')->delete($image->image);
+        }
+
+        // Delete the DB record
+        $image->delete();
+
+        return response()->json([
+            'message' => 'Image deleted successfully.'
+        ], 200);
+    }
+
+
     public function myRecipes()
     {
         // Ensure the user is authenticated

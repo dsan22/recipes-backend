@@ -38,6 +38,7 @@ Route::apiResources([
 Route::post('/recipes/search', [RecipeController::class, 'getRecipesByIngredients']);
 
 Route::post('/recipes/{id}/images', [RecipeController::class, 'addImage']);
+Route::delete('/recipes/{recipe}/images/{image}', [RecipeController::class, 'deleteImage']);
 
 Route::get('/my-recipes', [RecipeController::class, 'myRecipes'])->middleware('auth:sanctum');
 
