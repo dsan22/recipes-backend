@@ -146,9 +146,14 @@ class RecipeController extends Controller
         ], 201);
     }
 
-    public function deleteImage(int $recipe_id, int $image_id)
+    public function updateImageCover(Request $request, int $recipe_id, int $image_id)
     {
-        // Find the image and ensure it belongs to the recipe
+        // Validate the incoming field
+        $validated = $request->validate([
+            'is_cover' => 'required|boolean',
+        ]);
+
+        // Find the image
         $image = RecipeImage::where('recipe_id', $recipe_id)
             ->where('id', $image_id)
             ->first();
@@ -159,16 +164,21 @@ class RecipeController extends Controller
             ], 404);
         }
 
-        // Delete the file from storage
-        if ($image->image && Storage::disk('public')->exists($image->image)) {
-            Storage::disk('public')->delete($image->image);
-        }
-        // Delete the DB record
-        $image->delete();
+        // If setting this image as cover, remove cover from others
+       /* if ($validated['is_cover']) {
+            RecipeImage::where('recipe_id', $recipe_id)
+                ->update(['is_cover' => false]);
+        }*/
+
+        // Update selected image
+        $image->update([
+            'is_cover' => $validated['is_cover']
+        ]);
 
         return response()->json([
-            'message' => 'Image deleted successfully.'
-        ], 200);
+            'message' => 'Image cover status updated.',
+            'data' => $image
+        ]);
     }
 
 
