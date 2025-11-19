@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\UpdateRecipeRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class RecipeController extends Controller
 {
@@ -159,10 +160,9 @@ class RecipeController extends Controller
         }
 
         // Delete the file from storage
-        if ($image->image && \Storage::disk('public')->exists($image->image)) {
-            \Storage::disk('public')->delete($image->image);
+        if ($image->image && Storage::disk('public')->exists($image->image)) {
+            Storage::disk('public')->delete($image->image);
         }
-
         // Delete the DB record
         $image->delete();
 
