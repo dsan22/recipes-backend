@@ -164,11 +164,10 @@ class RecipeController extends Controller
             ], 404);
         }
 
-        // If setting this image as cover, remove cover from others
-       /* if ($validated['is_cover']) {
+        if ($validated['is_cover']) {
             RecipeImage::where('recipe_id', $recipe_id)
                 ->update(['is_cover' => false]);
-        }*/
+        }
 
         // Update selected image
         $image->update([
